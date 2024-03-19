@@ -46,7 +46,7 @@
 
         #autoUpdateSwitch {
             position: fixed;
-            top: 20px;
+            top: 40px;
             right: 20px;
             appearance: none;
             -webkit-appearance: none;
@@ -58,7 +58,7 @@
 
         #autoUpdateSwitch + label {
             position: fixed;
-            top: 20px;
+            top: 40px;
             right: 20px;
         }
 
@@ -145,7 +145,16 @@
                     var title = ttitle.replace(/ - Upwork$/, "");
                     var description = items[i].getElementsByTagName("description")[0].textContent;
                     var link = items[i].getElementsByTagName("link")[0].textContent;
-                    var itemId = i; // Використовуємо посилання як ідентифікатор елемента
+                    // Перевіряємо, чи є збіг
+                    var startIndex = link.indexOf('_');
+                    var endIndex = link.indexOf('?');
+                    if (startIndex !== -1 && endIndex !== -1 && startIndex < endIndex) {
+                        var linkId = link.substring(startIndex + 2, endIndex);
+                        console.log(linkId);
+                    } else {
+                        console.log("Посилання не містить необхідної інформації");
+                    }
+                    var itemId = linkId; // Використовуємо посилання як ідентифікатор елемента
 
                     // Перевіряємо, чи цей елемент був прочитаний
                     var readClass = readItems[itemId] ? 'read' : '';
