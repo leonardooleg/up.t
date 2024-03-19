@@ -85,6 +85,27 @@
             content: '✓ ';
         }
     </style>
+    <style>
+        #scrollToTopButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #scrollToTopButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
 </head>
 <body>
 <h1>RSS feed
@@ -105,6 +126,7 @@
 <div style="max-width: 90%" id="translatedContent"></div>
 <input type="checkbox" id="autoUpdateSwitch" checked>
 <label for="autoUpdateSwitch">Update</label>
+<button id="scrollToTopButton" title="Прокрутити вгору">&#9650;</button>
 
 <script>
     function loadRSS() {
@@ -186,6 +208,26 @@
 
     // Викликаємо функцію loadRSS при завантаженні сторінки
     loadRSS();
+</script>
+<script>
+    var scrollToTopButton = document.getElementById('scrollToTopButton');
+
+    window.addEventListener('scroll', function() {
+        // Показуємо кнопку, коли відстань від верху сторінки більше 300px
+        if (window.pageYOffset > 300) {
+            scrollToTopButton.style.display = 'block';
+        } else {
+            scrollToTopButton.style.display = 'none';
+        }
+    });
+
+    scrollToTopButton.addEventListener('click', function() {
+        // Прокручуємо сторінку до верху з анімацією
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 </script>
 
 </body>
