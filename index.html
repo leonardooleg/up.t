@@ -84,6 +84,9 @@
         #autoUpdateSwitch:checked + label::before {
             content: '✓ ';
         }
+        span.read-span {
+            float: right;
+        }
     </style>
     <style>
         #scrollToTopButton {
@@ -160,7 +163,7 @@
                     var readClass = readItems[itemId] ? 'read' : '';
 
                     content += "<div class='item " + readClass + "' data-item-id='" + itemId + "'>";
-                    content += "<h2><a href='" + link + "' target='_blank'>" + title + "</a><span style='font-size: 12px; color: cadetblue' data-item-id='" + itemId + "'>( прочитати )</span></h2>";
+                    content += "<h2><a href='" + link + "' target='_blank'>" + title + "</a><span class='read-span' style='font-size: 12px; color: cadetblue' data-item-id='" + itemId + "'>( прочитати )</span></h2>";
                     content += "<p>" + description + "</p>";
                     content += "</div>";
                 }
@@ -191,17 +194,17 @@
         loadRSS();
     }
 
-    // Оновлюємо сторінку кожні 40 секунд
-    setInterval(loadRSS, 60000);
 
     // Викликаємо loadRSS при завантаженні сторінки
-    loadRSS();
+    // Викликаємо loadRSS при завантаженні сторінки
+    window.onload = loadRSS;
 
 </script>
 
 <script>
     // Отримуємо посилання на перемикач
     var autoUpdateSwitch = document.getElementById('autoUpdateSwitch');
+    var autoUpdateInterval;
 
     // Додаємо обробник події для перемикача
     autoUpdateSwitch.addEventListener('change', function() {
@@ -214,9 +217,6 @@
             clearInterval(autoUpdateInterval);
         }
     });
-
-    // Викликаємо функцію loadRSS при завантаженні сторінки
-    loadRSS();
 </script>
 <script>
     var scrollToTopButton = document.getElementById('scrollToTopButton');
